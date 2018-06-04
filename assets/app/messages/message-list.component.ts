@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Message } from './message.model';
+import { MessageService } from './message.service';
 
 
 @Component ({
@@ -12,11 +13,13 @@ import { Message } from './message.model';
         (editClicked)="message.content = $event"
         *ngFor="let message of messages"></app-message>   
     </div>
-    `
+    `,
+    providers: [MessageService]
 })
 
 
 export class MessageListComponent {
+    constructor(private messageService: MessageService) {}
     messages: Message[] = [
         new Message ('nicemessage', 'me'),
         new Message ('newmwessage', 'toto'),
