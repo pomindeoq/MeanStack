@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MessageService } from './message.service';
 import { Message } from './message.model';
+import { NgForm } from '@angular/forms';
 
 
 
@@ -10,23 +11,25 @@ import { Message } from './message.model';
     template: `
 
 <div class="col-md-8 col-md-offset-2">
-    <div class="form-group">
-        <label for="content">Content</label>
-        <input type="text" id="content" class="form-control" #input>
-    </div>    
-    <button class="btn btn-primary" type="submit" (click)="onSave(input.value)">Save</button>
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm" ngNativeValidate>
+        <div class="form-group">
+            <label for="content">Content</label>
+            <input type="text" id="content" class="form-control" ngModel name="content" required>
+        </div>    
+        <button class="btn btn-primary" type="submit">Save</button>
+    </form>
 </div>
-`,
-providers: [MessageService]
+`
 })
 
 
 export class MessageInputComponent {
     constructor(private messageService: MessageService) {}
 
-    onSave(value: string) {
-        const message = new Message(value, 'Minde');
+    onSubmit(form: NgForm) {
+        const message = new Message(form.value.content, 'Minde');
         this.messageService.addMessage(message);
+        form.resetForm();
     }
     
 }
