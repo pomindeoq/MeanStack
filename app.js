@@ -15,7 +15,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
 mongoose.connect(
-   'mongodb://mindaugasibm:Icecube27@ds141870.mlab.com:41870/udemy_mean_tutorail')
+   'mongodb://mindaugasibm:@ds141870.mlab.com:41870/udemy_mean_tutorail')
     {
         useMongoClient: true
     }
